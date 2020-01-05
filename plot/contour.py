@@ -29,7 +29,7 @@ def plot_2d_contour_box(data, lat, lon, name):
     plt.title(name)
     plt.show()
 
-def plot_2d_contour_by_array(data, lat, lon, name, units, cb, save_name):
+def plot_2d_contour_by_array(data, lat, lon, name, units, cb, save_name=None):
     data_cyc, lon_cyc = add_cyclic_point(data, coord=lon)
 
     #data_cyc = data
@@ -50,6 +50,8 @@ def plot_2d_contour_by_array(data, lat, lon, name, units, cb, save_name):
             extend='both',\
             transform=ccrs.PlateCarree(),\
             cmap=cmo.balance)
+
+
 
     ax.coastlines();
     ax.set_xticks([0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 360], crs=ccrs.PlateCarree())
