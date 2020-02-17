@@ -29,21 +29,21 @@ def plot_2d_contour_box(data, lat, lon, name):
     plt.title(name)
     plt.show()
 
-def plot_2d_contour_by_array(data, lat, lon, name, units, cb, save_name=None):
+def plot_2d_contour_by_array(fig, ax, data, lat, lon, name, units, cb, save_name=None):
     data_cyc, lon_cyc = add_cyclic_point(data, coord=lon)
 
     #data_cyc = data
     #lon_cyc = lon
 
-    fig = plt.figure(figsize=(13,6.2))
-    ax = plt.axes(projection=ccrs.PlateCarree(central_longitude=180))
+    #fig = plt.figure(figsize=(13,6.2))
+    #ax = sub_ax.axes(projection=ccrs.PlateCarree(central_longitude=180))
     
     pwd_dir = os.path.dirname(__file__)
     file_color_range=open(pwd_dir+"/colorbar_range.json")
     color_range = json.load(file_color_range)
     v = color_range[cb]
 
-    mm = plt.contourf(lon_cyc,\
+    mm = ax.contourf(lon_cyc,\
             lat,\
             data_cyc,\
             v,\
@@ -61,15 +61,15 @@ def plot_2d_contour_by_array(data, lat, lon, name, units, cb, save_name=None):
     ax.xaxis.set_major_formatter(lon_formatter)
     ax.yaxis.set_major_formatter(lat_formatter)
 
-    cbar = plt.colorbar(mm, shrink=.85)
+    #cbar = fig.colorbar(mm, shrink=.85, ax=ax)
+    cbar = fig.colorbar(mm, fraction=0.02, ax=ax)
     #cbar.set_label(units, labelpad=-40, y=1.05, rotation=0)
     cbar.ax.set_title(units,fontsize=10)
 
-    plt.title(name)
+    ax.set_title(name)
 
     if save_name is not None:
         plt.savefig(save_name)
-    return fig,ax
 
 def plot_2d_contour_by_array_region(data, lat, lon, name, units, cb):
     lat_min = np.min(lat)
