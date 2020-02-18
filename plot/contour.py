@@ -54,12 +54,13 @@ def plot_2d_contour_by_array(fig, ax, data, lat, lon, name, units, cb, save_name
 
 
     ax.coastlines();
-    ax.set_xticks([0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 360], crs=ccrs.PlateCarree())
-    ax.set_yticks([-90, -60, -30, 0, 30, 60, 90], crs=ccrs.PlateCarree())
-    lon_formatter = LongitudeFormatter(zero_direction_label=False)
-    lat_formatter = LatitudeFormatter()
-    ax.xaxis.set_major_formatter(lon_formatter)
-    ax.yaxis.set_major_formatter(lat_formatter)
+    if str(ax.projection).split(' ')[0].split('.')[2] != 'Robinson':
+        ax.set_xticks([0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 360], crs=ccrs.PlateCarree())
+        ax.set_yticks([-90, -60, -30, 0, 30, 60, 90], crs=ccrs.PlateCarree())
+        lon_formatter = LongitudeFormatter(zero_direction_label=False)
+        lat_formatter = LatitudeFormatter()
+        ax.xaxis.set_major_formatter(lon_formatter)
+        ax.yaxis.set_major_formatter(lat_formatter)
 
     #cbar = fig.colorbar(mm, shrink=.85, ax=ax)
     cbar = fig.colorbar(mm, fraction=0.02, ax=ax)
