@@ -11,6 +11,7 @@ import os
 from cartopy.util import add_cyclic_point
 import pandas as pd
 import matplotlib.colors as colors
+import matplotlib.patches as patches
 
 def plot_2d_contour_box(data, lat, lon, name):
     data_cyc, lon_cyc = add_cyclic_point(data, coord=lon)
@@ -149,6 +150,9 @@ def plot_2d_contour(fid, name, cb):
     plt.show()
     return ax
 
+def plot_rectangle(ax, lat_bnds, lon_bnds, ecolor='r'):
+    rect  = patches.Rectangle((lon_bnds[0]-180,lat_bnds[0]),lon_bnds[1]-lon_bnds[0],lat_bnds[1]-lat_bnds[0],linewidth=3,edgecolor=ecolor,facecolor='none')
+    ax.add_patch(rect)
 
 if __name__ == '__main__':
     data_dir="/gscr3/tzhang/cause_doubleitcz/cesm/BC5_f19g16_cosp/atm/"
