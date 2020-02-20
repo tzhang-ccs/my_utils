@@ -72,26 +72,20 @@ def plot_2d_contour_by_array(fig, ax, data, lat, lon, name, units, cb, save_name
     if save_name is not None:
         plt.savefig(save_name)
 
-def plot_2d_contour_by_array_region(data, lat, lon, name, units, cb):
-    lat_min = np.min(lat)
-    lat_max = np.max(lat)
-    lon_min = np.min(lon)
-    lon_max = np.max(lon)
+def plot_2d_contour_by_array_region(fig, ax, data, lat, lon, lat_rgns, lon_rgns, name, units, cb):
+    xticks = np.arange(lon_rgns[0], lon_rgns[1], 30)
+    yticks = np.arange(lat_rgns[0], lat_rgns[1], 10)
+
 
     data_cyc, lon_cyc = add_cyclic_point(data, coord=lon)
-    plt.figure(figsize=(13,6.2))
-    ax = plt.subplot(projection=ccrs.PlateCarree(180))
-    ax.set_extent([122.5, 295, -60, 60], ccrs.PlateCarree())
-    #ax = plt.subplot(1, 1, 1, projection=ccrs.PlateCarree())
-    #ax.set_extent([122.5,-180, -60, 60], crs=ccrs.PlateCarree())
-    print(lon_min, lon_max)
+    ax.set_extent([lon_rgns[0],lon_rgns[1],lat_rgns[0],lat_rgns[1]], ccrs.PlateCarree())
 
     pwd_dir = os.path.dirname(__file__)
     file_color_range=open(pwd_dir+"/colorbar_range.json")
     color_range = json.load(file_color_range)
     v = color_range[cb]
 
-    mm = plt.contourf(lon_cyc,\
+    mm = ax.contourf(lon_cyc,\
             lat,\
             data_cyc,\
             v,\
@@ -100,20 +94,18 @@ def plot_2d_contour_by_array_region(data, lat, lon, name, units, cb):
             cmap=cmo.balance)
 
     ax.coastlines();
-    ax.set_xticks([120, 150, 180, 210, 240, 270, 300], crs=ccrs.PlateCarree())
-    ax.set_yticks([-60, -30, 0, 30, 60], crs=ccrs.PlateCarree())
+    ax.set_xticks(xticks, crs=ccrs.PlateCarree())
+    ax.set_yticks(yticks, crs=ccrs.PlateCarree())
     lon_formatter = LongitudeFormatter(zero_direction_label=False)
     lat_formatter = LatitudeFormatter()
     ax.xaxis.set_major_formatter(lon_formatter)
     ax.yaxis.set_major_formatter(lat_formatter)
 
-    cbar = plt.colorbar(mm, shrink=.85)
+    cbar = fig.colorbar(mm, fraction=0.018, ax=ax)
     #cbar.set_label(units, labelpad=-40, y=1.05, rotation=0)
     cbar.ax.set_title(units,fontsize=10)
 
-    plt.title(name)
-    return ax,mm
-
+    ax.set_title(name)
 
 def plot_2d_contour(fid, name, cb):
 
