@@ -78,7 +78,7 @@ def plot_2d_contour_by_array(fig, ax, data, lat, lon, name, units, cb, save_name
     if save_name is not None:
         plt.savefig(save_name)
 
-def plot_2d_contour_by_array_region(fig, ax, data, lat, lon, lat_rgns, lon_rgns, name, units, cb, Diff=False):
+def plot_2d_contour_by_array_region(fig, ax, data, lat, lon, lat_rgns, lon_rgns, name, units, cb):
     xticks = np.arange(lon_rgns[0], lon_rgns[1], 30)
     yticks = np.arange(lat_rgns[0], lat_rgns[1], 10)
 
@@ -91,10 +91,7 @@ def plot_2d_contour_by_array_region(fig, ax, data, lat, lon, lat_rgns, lon_rgns,
     color_range = json.load(file_color_range)
     v = color_range[cb]
 
-    if Diff == True:
-        cmap = cmo.balance
-    else:
-        cmap = cmo.deep
+    cmap = cmo.balance
 
     mm = ax.contourf(lon_cyc,\
             lat,\
