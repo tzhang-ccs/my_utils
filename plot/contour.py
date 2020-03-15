@@ -13,41 +13,20 @@ import pandas as pd
 import matplotlib.colors as colors
 import matplotlib.patches as patches
 
-def plot_2d_contour_box(data, lat, lon, name):
+
+def plot_2d_contour_by_array(fig, ax, data, lat, lon, name, units, cb):
+    xticks = np.arange(0, 360, 30)
+    yticks = np.arange(-90, 90, 10)
+
+
     data_cyc, lon_cyc = add_cyclic_point(data, coord=lon)
 
-    plt.figure(figsize=(13,6.2))
-    ax = plt.axes(projection=ccrs.PlateCarree(central_longitude=180))
-    mm = ax.pcolormesh(lon_cyc,\
-                   lat,\
-                   data_cyc,\
-                   vmin=np.min(data_cyc),\
-                   vmax=np.max(data_cyc),\
-                   transform=ccrs.PlateCarree(),\
-                   cmap=cmo.balance )
-    ax.coastlines();
-    plt.colorbar(mm)
-    plt.title(name)
-    plt.show()
-
-def plot_2d_contour_by_array(fig, ax, data, lat, lon, name, units, cb, save_name=None, Diff=False):
-    data_cyc, lon_cyc = add_cyclic_point(data, coord=lon)
-
-    #data_cyc = data
-    #lon_cyc = lon
-
-    #fig = plt.figure(figsize=(13,6.2))
-    #ax = sub_ax.axes(projection=ccrs.PlateCarree(central_longitude=180))
-    
     pwd_dir = os.path.dirname(__file__)
     file_color_range=open(pwd_dir+"/colorbar_range.json")
     color_range = json.load(file_color_range)
     v = color_range[cb]
 
-    if Diff == True:
-        cmap = cmo.balance
-    else:
-        cmap = cmp.amp
+    cmap = cmo.balance
 
     mm = ax.contourf(lon_cyc,\
             lat,\
@@ -57,26 +36,20 @@ def plot_2d_contour_by_array(fig, ax, data, lat, lon, name, units, cb, save_name
             transform=ccrs.PlateCarree(),\
             cmap=cmap)
 
-
-
     ax.coastlines();
-    if str(ax.projection).split(' ')[0].split('.')[2] != 'Robinson':
-        ax.set_xticks([0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 360], crs=ccrs.PlateCarree())
-        ax.set_yticks([-90, -60, -30, 0, 30, 60, 90], crs=ccrs.PlateCarree())
-        lon_formatter = LongitudeFormatter(zero_direction_label=False)
-        lat_formatter = LatitudeFormatter()
-        ax.xaxis.set_major_formatter(lon_formatter)
-        ax.yaxis.set_major_formatter(lat_formatter)
+    ax.set_xticks(xticks, crs=ccrs.PlateCarree())
+    ax.set_yticks(yticks, crs=ccrs.PlateCarree())
+    lon_formatter = LongitudeFormatter(zero_direction_label=False)
+    lat_formatter = LatitudeFormatter()
+    ax.xaxis.set_major_formatter(lon_formatter)
+    ax.yaxis.set_major_formatter(lat_formatter)
 
-    #cbar = fig.colorbar(mm, shrink=.85, ax=ax)
-    cbar = fig.colorbar(mm, fraction=0.02, ax=ax)
+    cbar = fig.colorbar(mm, fraction=0.018, ax=ax)
     #cbar.set_label(units, labelpad=-40, y=1.05, rotation=0)
     cbar.ax.set_title(units,fontsize=10)
 
     ax.set_title(name)
 
-    if save_name is not None:
-        plt.savefig(save_name)
 
 def plot_2d_contour_by_array_region(fig, ax, data, lat, lon, lat_rgns, lon_rgns, name, units, cb):
     xticks = np.arange(lon_rgns[0], lon_rgns[1], 30)
