@@ -134,6 +134,13 @@ def plot_rectangle(ax, lat_bnds, lon_bnds, ecolor='r'):
     rect  = patches.Rectangle((lon_bnds[0]-180,lat_bnds[0]),lon_bnds[1]-lon_bnds[0],lat_bnds[1]-lat_bnds[0],linewidth=3,edgecolor=ecolor,facecolor='none')
     ax.add_patch(rect)
 
+def plot_corrsig(ax, data, lat, lon, sigleg):
+    idx_2d = np.where(data < sigleg)
+    latsig = lat[idx_2d[0]]
+    lonsig = lon[idx_2d[1]] - 180.0
+
+    ax.scatter(lonsig, latsig, s=1,color='gray')
+
 if __name__ == '__main__':
     data_dir="/gscr3/tzhang/cause_doubleitcz/cesm/BC5_f19g16_cosp/atm/"
     flf  = Dataset(data_dir+'BC5_f19g16_cosp.cam.h0.0003-07.nc')
