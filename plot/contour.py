@@ -141,12 +141,16 @@ def plot_corrsig(ax, data, lat, lon, sigleg):
 
     ax.scatter(lonsig, latsig, s=1,color='gray')
 
-def get_colorbar_range(a_min, a_max, name):
+def get_colorbar_range(var, name, adj=0):
     pwd_dir = os.path.dirname(__file__)
     file_color_step=open(pwd_dir+"/colorbar_step.json")
     color_step = json.load(file_color_step)
     step = color_step[name]
-    c_range = np.arange(a_min, a_max+step*2, step)
+
+    a_min = int(np.min(var))
+    a_max = int(np.max(var))
+
+    c_range = np.arange(a_min, a_max+adj*step, step)
     return c_range
 
 if __name__ == '__main__':
