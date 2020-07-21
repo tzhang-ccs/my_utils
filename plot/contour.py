@@ -14,7 +14,7 @@ import matplotlib.colors as colors
 import matplotlib.patches as patches
 
 
-def plot_2d_contour_by_array(fig, ax, data, lat, lon, name, units, cb):
+def plot_2d_contour_by_array(fig, ax, data, lat, lon, name, units, colorbar_range):
     xticks = np.arange(0, 360, 30)
     yticks = np.arange(-90, 90, 10)
 
@@ -31,7 +31,7 @@ def plot_2d_contour_by_array(fig, ax, data, lat, lon, name, units, cb):
     mm = ax.contourf(lon_cyc,\
             lat,\
             data_cyc,\
-            v,\
+            colorbar_range,\
             extend='both',\
             transform=ccrs.PlateCarree(),\
             cmap=cmap)
@@ -51,7 +51,7 @@ def plot_2d_contour_by_array(fig, ax, data, lat, lon, name, units, cb):
     ax.set_title(name)
 
 
-def plot_2d_contour_by_array_region(fig, ax, data, lat, lon, lat_rgns, lon_rgns, name, units, cb):
+def plot_2d_contour_by_array_region(fig, ax, data, lat, lon, lat_rgns, lon_rgns, name, units, colorbar_range):
     xticks = np.arange(lon_rgns[0], lon_rgns[1], 30)
     yticks = np.arange(lat_rgns[0], lat_rgns[1], 10)
 
@@ -59,17 +59,17 @@ def plot_2d_contour_by_array_region(fig, ax, data, lat, lon, lat_rgns, lon_rgns,
     data_cyc, lon_cyc = add_cyclic_point(data, coord=lon)
     ax.set_extent([lon_rgns[0],lon_rgns[1],lat_rgns[0],lat_rgns[1]], ccrs.PlateCarree())
 
-    pwd_dir = os.path.dirname(__file__)
-    file_color_range=open(pwd_dir+"/colorbar_range.json")
-    color_range = json.load(file_color_range)
-    v = color_range[cb]
+    #pwd_dir = os.path.dirname(__file__)
+    #file_color_range=open(pwd_dir+"/colorbar_range.json")
+    #color_range = json.load(file_color_range)
+    #v = color_range[cb]
 
     cmap = cmo.balance
 
     mm = ax.contourf(lon_cyc,\
             lat,\
             data_cyc,\
-            v,\
+            colorbar_range,\
             extend='both',\
             transform=ccrs.PlateCarree(),\
             cmap=cmap)
@@ -140,6 +140,14 @@ def plot_corrsig(ax, data, lat, lon, sigleg):
     lonsig = lon[idx_2d[1]] - 180.0
 
     ax.scatter(lonsig, latsig, s=1,color='gray')
+
+def get_colorbar_range(a_min, a_max, name):
+    pwd_dir = os.path.dirname(__file__)
+    file_color_step=open(pwd_dir+"/colorbar_step.json")
+    color_step = json.load(file_color_step)
+    step = color_step[name]
+    c_range = np.arange(a_min, a_max+step*2, step)
+    return c_range
 
 if __name__ == '__main__':
     data_dir="/gscr3/tzhang/cause_doubleitcz/cesm/BC5_f19g16_cosp/atm/"
