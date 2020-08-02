@@ -141,6 +141,23 @@ def plot_corrsig(ax, data, lat, lon, sigleg):
 
     ax.scatter(lonsig, latsig, s=1,color='gray')
 
+
+def plot_corrsig_only(ax, data, lat, lon, lat_rgns, lon_rgns, sigleg):
+    idx_2d = np.where(data < sigleg)
+    latsig = lat[idx_2d[0]]
+    lonsig = lon[idx_2d[1]] - 180.0
+
+    ax.scatter(lonsig, latsig, s=1,color='gray')
+    xticks = np.arange(lon_rgns[0], lon_rgns[1], 30)
+    yticks = np.arange(lat_rgns[0], lat_rgns[1], 10)
+
+    ax.set_xticks(xticks, crs=ccrs.PlateCarree())
+    ax.set_yticks(yticks, crs=ccrs.PlateCarree())
+    lon_formatter = LongitudeFormatter(zero_direction_label=False)
+    lat_formatter = LatitudeFormatter()
+    ax.xaxis.set_major_formatter(lon_formatter)
+    ax.yaxis.set_major_formatter(lat_formatter)
+
 def get_colorbar_range(var, name, adj=0):
     pwd_dir = os.path.dirname(__file__)
     file_color_step=open(pwd_dir+"/colorbar_step.json")
