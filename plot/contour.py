@@ -171,15 +171,18 @@ def get_colorbar_range(var, name, adj=0):
     return c_range
 
 def plot_scatter():
-	s1 = 150
-	a1 = 0.6
-	fh = 18
-	
-	for icol in tmp1.columns:
-	    plt.scatter(range(4),tmp1.loc[:,icol],s=s1,alpha=a1,label=icol)
-	    
-	plt.tick_params(labelsize=fh) 
-	plt.legend(fontsize=fh,bbox_to_anchor=(1.04,0),loc='lower left')
+    s1 = 150
+    a1 = 0.6
+    fh = 18
+    palette = plt.get_cmap('Set2')
+    
+    for i,icol in zip(range(len(tmp1.columns)),tmp1.columns):
+        #plt.scatter(range(4),tmp1.loc[:,icol],s=s1,alpha=a1,label=icol, color=palette(i))
+        plt.scatter(range(4),tmp1.loc[:,icol],s=s1,alpha=a1,label=icol)
+        
+    plt.tick_params(labelsize=fh) 
+    plt.legend(fontsize=fh,bbox_to_anchor=(1.04,0),loc='lower left')
+
 
 if __name__ == '__main__':
     data_dir="/gscr3/tzhang/cause_doubleitcz/cesm/BC5_f19g16_cosp/atm/"
