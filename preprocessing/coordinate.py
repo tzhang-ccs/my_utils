@@ -75,3 +75,6 @@ def get_timeseries_files(flist,varn,lat_bnds,lon_bnds):
         timeseries = np.append(timeseries,data_mean)
 
     return timeseries
+
+
+
