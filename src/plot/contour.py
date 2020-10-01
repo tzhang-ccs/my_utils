@@ -51,7 +51,7 @@ def plot_2d_contour_by_array(fig, ax, data, lat, lon, name, units, colorbar_rang
     ax.set_title(name)
 
 
-def plot_2d_contour_by_array_region(fig, ax, data, lat, lon, lat_rgns, lon_rgns, name, units, colorbar_range):
+def plot_2d_contour_by_array_region(fig, ax, data, lat, lon, lat_rgns, lon_rgns, name, units, colorbar_range, cmap = cmo.balance):
     xticks = np.arange(lon_rgns[0], lon_rgns[1], 30)
     yticks = np.arange(lat_rgns[0], lat_rgns[1], 30)
 
@@ -64,7 +64,7 @@ def plot_2d_contour_by_array_region(fig, ax, data, lat, lon, lat_rgns, lon_rgns,
     #color_range = json.load(file_color_range)
     #v = color_range[cb]
 
-    cmap = cmo.balance
+    #cmap = cmo.balance
 
     mm = ax.contourf(lon_cyc,\
             lat,\
