@@ -170,9 +170,10 @@ def plot_corrsig_only(ax, data, lat, lon, lat_rgns, lon_rgns, sigleg):
     latsig = lat[idx_2d[0]]
     lonsig = lon[idx_2d[1]] - 180.0
 
+    ax.coastlines()
     ax.scatter(lonsig, latsig, s=1,color='gray')
     xticks = np.arange(lon_rgns[0], lon_rgns[1], 30)
-    yticks = np.arange(lat_rgns[0], lat_rgns[1], 10)
+    yticks = np.arange(lat_rgns[0], lat_rgns[1], 30)
 
     ax.set_xticks(xticks, crs=ccrs.PlateCarree())
     ax.set_yticks(yticks, crs=ccrs.PlateCarree())
