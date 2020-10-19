@@ -82,11 +82,15 @@ def plot_2d_contour_by_array_region(fig, ax, data, lat, lon, lat_rgns, lon_rgns,
     ax.xaxis.set_major_formatter(lon_formatter)
     ax.yaxis.set_major_formatter(lat_formatter)
 
+    fh = 18
     cbar = fig.colorbar(mm, fraction=0.018, ax=ax)
     #cbar.set_label(units, labelpad=-40, y=1.05, rotation=0)
-    cbar.ax.set_title(units,fontsize=10)
+    cbar.ax.set_title(units,fontsize=fh)
+    cbar.ax.tick_params(labelsize=fh)
 
-    ax.set_title(name)
+    ax.set_title(name, fontsize=fh)
+    ax.tick_params(labelsize=fh)
+    
 
 def plot_2d_contour(fid, name, cb):
 
