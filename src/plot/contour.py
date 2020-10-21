@@ -52,12 +52,12 @@ def plot_2d_contour_by_array(fig, ax, data, lat, lon, name, units, colorbar_rang
 
 
 def plot_2d_contour_by_array_region(fig, ax, data, lat, lon, lat_rgns, lon_rgns, name, units, colorbar_range, cmap = cmo.balance):
-    xticks = np.arange(lon_rgns[0], lon_rgns[1], 30)
-    yticks = np.arange(lat_rgns[0], lat_rgns[1], 30)
+    xticks = np.arange(lon_rgns[0], lon_rgns[1]+1, 30)
+    yticks = np.arange(lat_rgns[0], lat_rgns[1]+1, 30)
 
 
     data_cyc, lon_cyc = add_cyclic_point(data, coord=lon)
-    ax.set_extent([lon_rgns[0],lon_rgns[1],lat_rgns[0],lat_rgns[1]], ccrs.PlateCarree())
+    ax.set_extent([lon_rgns[0],lon_rgns[1]+1,lat_rgns[0],lat_rgns[1]+1], ccrs.PlateCarree())
 
     #pwd_dir = os.path.dirname(__file__)
     #file_color_range=open(pwd_dir+"/colorbar_range.json")
@@ -71,6 +71,7 @@ def plot_2d_contour_by_array_region(fig, ax, data, lat, lon, lat_rgns, lon_rgns,
             data_cyc,\
             colorbar_range,\
             extend='both',\
+            corner_mask=False,\
             transform=ccrs.PlateCarree(),\
             cmap=cmap)
 
@@ -84,12 +85,12 @@ def plot_2d_contour_by_array_region(fig, ax, data, lat, lon, lat_rgns, lon_rgns,
 
     fh = 18
     cbar = fig.colorbar(mm, fraction=0.018, ax=ax)
-    #cbar.set_label(units, labelpad=-40, y=1.05, rotation=0)
+    ##cbar.set_label(units, labelpad=-40, y=1.05, rotation=0)
     cbar.ax.set_title(units,fontsize=fh)
     cbar.ax.tick_params(labelsize=fh)
 
     ax.set_title(name, fontsize=fh)
-    ax.tick_params(labelsize=fh)
+    ax.tick_params(labelsize=13)
     
 
 def plot_2d_contour(fid, name, cb):
