@@ -51,7 +51,7 @@ def plot_2d_contour_by_array(fig, ax, data, lat, lon, name, units, colorbar_rang
     ax.set_title(name)
 
 
-def plot_2d_contour_by_array_region(fig, ax, data, lat, lon, lat_rgns, lon_rgns, name, units, colorbar_range, cmap = cmo.balance):
+def plot_2d_contour_by_array_region(fig, ax, data, lat, lon, lat_rgns, lon_rgns, name, units, colorbar_range, cmap = cmo.balance, alpha=1.0):
     xticks = np.arange(lon_rgns[0], lon_rgns[1]+1, 30)
     yticks = np.arange(lat_rgns[0], lat_rgns[1]+1, 30)
 
@@ -73,6 +73,7 @@ def plot_2d_contour_by_array_region(fig, ax, data, lat, lon, lat_rgns, lon_rgns,
             extend='both',\
             corner_mask=False,\
             transform=ccrs.PlateCarree(),\
+            alpha = alpha,\
             cmap=cmap)
 
     ax.coastlines();
