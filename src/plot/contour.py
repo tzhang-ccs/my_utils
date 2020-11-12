@@ -51,10 +51,30 @@ def plot_2d_contour_by_array(fig, ax, data, lat, lon, name, units, colorbar_rang
     ax.set_title(name)
 
 
-def plot_2d_contour_by_array_region(fig, ax, data, lat, lon, lat_rgns, lon_rgns, name, units, colorbar_range, cmap = cmo.balance, alpha=1.0):
+def plot_2d_contour_by_array_region(fig, ax, data, lat, lon, lat_rgns, lon_rgns, name):
     xticks = np.arange(lon_rgns[0], lon_rgns[1]+1, 30)
     yticks = np.arange(lat_rgns[0], lat_rgns[1]+1, 30)
 
+    data_cyc, lon_cyc = add_cyclic_point(data, coord=lon)
+    ax.set_extent([lon_rgns[0],lon_rgns[1]+1,lat_rgns[0],lat_rgns[1]+1], ccrs.PlateCarree())
+
+    mm = ax.contour(lon_cyc,lat,data_cyc, levels=15, colors='black')
+    ax.clabel(mm, inline=1,fmt='%2.0f', fontsize=10)
+    ax.coastlines();
+    ax.set_xticks(xticks, crs=ccrs.PlateCarree())
+    ax.set_yticks(yticks, crs=ccrs.PlateCarree())
+    lon_formatter = LongitudeFormatter(zero_direction_label=False)
+    lat_formatter = LatitudeFormatter()
+    ax.xaxis.set_major_formatter(lon_formatter)
+    ax.yaxis.set_major_formatter(lat_formatter)
+    
+    
+    fh=18
+    ax.set_title(name, fontsize=fh)
+
+def plot_2d_contourf_by_array_region(fig, ax, data, lat, lon, lat_rgns, lon_rgns, name, units, colorbar_range, cmap = cmo.balance, alpha=1.0):
+    xticks = np.arange(lon_rgns[0], lon_rgns[1]+1, 30)
+    yticks = np.arange(lat_rgns[0], lat_rgns[1]+1, 30)
 
     data_cyc, lon_cyc = add_cyclic_point(data, coord=lon)
     ax.set_extent([lon_rgns[0],lon_rgns[1]+1,lat_rgns[0],lat_rgns[1]+1], ccrs.PlateCarree())
