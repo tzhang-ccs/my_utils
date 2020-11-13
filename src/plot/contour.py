@@ -58,7 +58,7 @@ def plot_2d_contour_by_array_region(fig, ax, data, lat, lon, lat_rgns, lon_rgns,
     data_cyc, lon_cyc = add_cyclic_point(data, coord=lon)
     ax.set_extent([lon_rgns[0],lon_rgns[1]+1,lat_rgns[0],lat_rgns[1]+1], ccrs.PlateCarree())
 
-    mm = ax.contour(lon_cyc,lat,data_cyc, levels=15, colors='black')
+    mm = ax.contour(lon_cyc,lat,data_cyc, levels=15, colors='grey')
     ax.clabel(mm, inline=1,fmt='%2.0f', fontsize=10)
     ax.coastlines();
     ax.set_xticks(xticks, crs=ccrs.PlateCarree())
@@ -85,6 +85,7 @@ def plot_2d_contourf_by_array_region(fig, ax, data, lat, lon, lat_rgns, lon_rgns
     #v = color_range[cb]
 
     #cmap = cmo.balance
+    ax.coastlines();
 
     mm = ax.contourf(lon_cyc,\
             lat,\
@@ -92,11 +93,10 @@ def plot_2d_contourf_by_array_region(fig, ax, data, lat, lon, lat_rgns, lon_rgns
             colorbar_range,\
             extend='both',\
             corner_mask=False,\
-            transform=ccrs.PlateCarree(),\
+            #transform=ccrs.PlateCarree(),\
             alpha = alpha,\
             cmap=cmap)
 
-    ax.coastlines();
     ax.set_xticks(xticks, crs=ccrs.PlateCarree())
     ax.set_yticks(yticks, crs=ccrs.PlateCarree())
     lon_formatter = LongitudeFormatter(zero_direction_label=False)
