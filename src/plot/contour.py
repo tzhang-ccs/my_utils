@@ -46,10 +46,10 @@ def plot_2d_contourf_PlateCarree(fig, ax, data, lat, lon, lat_rgns, lon_rgns, na
     ax.yaxis.set_major_formatter(lat_formatter)
 
     fh = 18
-    cbar = fig.colorbar(mm, fraction=0.018, ax=ax)
+    #cbar = fig.colorbar(mm, fraction=0.018, ax=ax)
     ##cbar.set_label(units, labelpad=-40, y=1.05, rotation=0)
-    cbar.ax.set_title(units,fontsize=fh)
-    cbar.ax.tick_params(labelsize=fh)
+    #cbar.ax.set_title(units,fontsize=fh)
+    #cbar.ax.tick_params(labelsize=fh)
 
     ax.set_title(name, fontsize=fh)
     ax.tick_params(labelsize=13)
@@ -107,13 +107,14 @@ def plot_corrsig_only(ax, data, lat, lon, lat_rgns, lon_rgns, sigleg):
     ax.yaxis.set_major_formatter(lat_formatter)
 
 
-def plot_scatter(ax, lat_rgns, lon_rgns, slat, slon):
+def plot_scatter(ax, lat_rgns, lon_rgns, slat, slon, title):
     sflon = slon - 180.0
 
     ax.coastlines()
     ax.scatter(sflon, slat, s=1,color='gray')
     xticks = np.arange(lon_rgns[0], lon_rgns[1], 30)
     yticks = np.arange(lat_rgns[0], lat_rgns[1], 30)
+    ax.set_extent([lon_rgns[0],lon_rgns[1]+1,lat_rgns[0],lat_rgns[1]+1], ccrs.PlateCarree())
 
     ax.set_xticks(xticks, crs=ccrs.PlateCarree())
     ax.set_yticks(yticks, crs=ccrs.PlateCarree())
@@ -121,6 +122,9 @@ def plot_scatter(ax, lat_rgns, lon_rgns, slat, slon):
     lat_formatter = LatitudeFormatter()
     ax.xaxis.set_major_formatter(lon_formatter)
     ax.yaxis.set_major_formatter(lat_formatter)
+
+    fh = 18
+    ax.set_title(title, fontsize=fh)
 
     return ax
 
