@@ -327,7 +327,3 @@ ncap2 -s 'where(lat==123 & lon==456) {var1=0; var2})' in.nc out.nc
 Provided by John of the NCO users group.
 
 Return
-
-July 2016
-Todd Mitchell ( mitchell@atmos.washington.edu )
-JISAO data
