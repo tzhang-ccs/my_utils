@@ -29,7 +29,7 @@ def plot_2d_contourf_PlateCarree(fig, ax, data, lat, lon, lat_rgns, lon_rgns, na
     #cmap = cmo.balance
     ax.coastlines();
 
-    cmap = "RdBu_r"
+    #cmap = "RdBu_r"
     mm = ax.contourf(lon_cyc,\
             lat,\
             data_cyc,\
@@ -48,10 +48,10 @@ def plot_2d_contourf_PlateCarree(fig, ax, data, lat, lon, lat_rgns, lon_rgns, na
     ax.yaxis.set_major_formatter(lat_formatter)
 
     fh = 18
-    cbar = fig.colorbar(mm, fraction=0.018, ax=ax)
-    #cbar.set_label(units, labelpad=-40, y=1.05, rotation=0)
-    cbar.ax.set_title(units,fontsize=fh)
-    cbar.ax.tick_params(labelsize=fh)
+    #cbar = fig.colorbar(mm, fraction=0.018, ax=ax)
+    ##cbar.set_label(units, labelpad=-40, y=1.05, rotation=0)
+    #cbar.ax.set_title(units,fontsize=fh)
+    #cbar.ax.tick_params(labelsize=fh)
 
     ax.set_title(name, fontsize=fh)
     ax.tick_params(labelsize=13)
