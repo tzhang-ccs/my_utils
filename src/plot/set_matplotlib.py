@@ -1,7 +1,7 @@
 from cycler import cycler
 
 my_cycler = (cycler(color=['#94c8d8','#FE9A84','#296540','#E63F39','#C3AAD1',
-              '#D5AC5A','#F4B6C3','#B4BCCA','#DBD468','#B1D3E1']))
+              '#D5AC5A','#F4B6C3','#B4BCCA','#DBD468','#B1D3E1','#8b1821']))
 plt.rcParams['figure.figsize'] = (18,12)
 plt.rcParams['axes.prop_cycle'] = my_cycler
 plt.rcParams['lines.linewidth'] = 3
