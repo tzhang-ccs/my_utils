@@ -14,7 +14,7 @@ plt.rcParams['axes.titlesize'] = 18
 
 
 color_list = ['#08808E','#FE9A84','#296540','#E63F39','#C3AAD1',
-              '#D5AC5A','#F4B6C3','#B4BCCA','#DBD468','#B1D3E1']
+              '#D5AC5A','#F4B6C3','#B4BCCA','#DBD468','#B1D3E1','#8B1821']
 my_cmap = LinearSegmentedColormap.from_list('excalibur',color_list)
 cm.register_cmap(cmap=my_cmap)
 
@@ -28,3 +28,4 @@ cm.register_cmap(cmap=my_cmap)
 #gray: B4BCCA
 #yellow: DBD468
 #cyan: B1D3E1
+#wine: 8b1821
