@@ -11,6 +11,7 @@ plt.rcParams['axes.labelsize'] = 16
 plt.rcParams['xtick.labelsize'] = 16
 plt.rcParams['ytick.labelsize'] = 16
 plt.rcParams['axes.titlesize'] = 18
+plt.rcParams['figure.titlesize'] = 18
 
 
 color_list = ['#08808E','#FE9A84','#296540','#E63F39','#C3AAD1',
